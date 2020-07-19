@@ -9,5 +9,7 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.5.0" />
   </ItemGroup>
 
-
+  <ItemGroup>
+    <None Update="custom-auth-original.js" CopyToOutputDirectory="Always" CopyToPublishDirectory="Always" />
+  </ItemGroup>
 </Project>

@@ -17,7 +17,7 @@ const authorize = () => {
     const account = xAcc.value;
     console.log(`Auth with ${user}:${pass}:${account}`);
 
-    // fetch(...) -> postAuthorize()
+    // fetch(...) -> postAuthorize(result, error)
     setTimeout(() => postAuthorize("smileyface", 'xd'), 1500);
 }
 

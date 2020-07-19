@@ -107,18 +107,21 @@ namespace SwashAuthTest
                 c.InjectJavascript("/custom-auth.js");
             });
 
-            app.UseStaticFiles();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapGet("/custom-auth.js", async ctx =>
+                {
+                    ctx.Response.ContentType = "application/javascript";
+                    await ctx.Response.SendFileAsync("custom-auth.js");
+                });
             });
         }
 
         public void PatchAuth(IWebHostEnvironment env)
         {
-            using var authJsIn = File.OpenRead("wwwroot/custom-auth-original.js");
-            using var authJsOut = File.Open("wwwroot/custom-auth.js", FileMode.Create, FileAccess.Write, FileShare.None);
+            using var authJsIn = File.OpenRead("custom-auth-original.js");
+            using var authJsOut = File.Open("custom-auth.js", FileMode.Create, FileAccess.Write, FileShare.None);
             authJsOut.Write(Encoding.UTF8.GetBytes($"const IDENTITY_URL='{env.EnvironmentName}';{Environment.NewLine}{Environment.NewLine}"));
             authJsIn.CopyTo(authJsOut);
         }
