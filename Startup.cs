@@ -80,6 +80,8 @@ namespace SwashAuthTest
                         Array.Empty<string>()
                     }
                 });
+
+                c.OperationFilter<DropdownFilter>();
             });
         }
 

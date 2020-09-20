@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -25,8 +23,10 @@ namespace SwashAuthTest.Controllers
             _logger = logger;
         }
 
-        [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
+        [HttpGet(Name = "GetWeather")]
+        [DropdownConfigList("someData", "Texts:SomeTexts")]
+        [DropdownConfigList("otherData", "Texts:OtherTexts")]
+        public IEnumerable<WeatherForecast> Get([FromQuery] string someData, [FromQuery] string otherData)
         {
             _logger.LogDebug($"M: {JsonSerializer.Serialize(Request.Headers.ToList())}");
             var rng = new Random();
